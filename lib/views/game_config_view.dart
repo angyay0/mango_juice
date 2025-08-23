@@ -72,21 +72,6 @@ class _GameConfigViewState extends State<GameConfigView> {
     return generateLabels(_pegs);
   }
 
-  String? _validate() {
-    if (_disks < 1) return 'Debe haber al menos 1 disco.';
-    if (_pegs < 3) return 'Debe haber al menos 3 torres.';
-    final labels = _effectiveLabels;
-    if (labels.length != _pegs) return 'Cantidad de etiquetas inválida.';
-    if (labels.any((e) => e.isEmpty))
-      return 'Las etiquetas no pueden estar vacías.';
-    if (labels.toSet().length != labels.length)
-      return 'Las etiquetas deben ser únicas.';
-    if (!labels.contains(_from)) return 'La torre de origen no es válida.';
-    if (!labels.contains(_to) || _to == _from)
-      return 'La torre de destino no es válida o coincide con origen.';
-    return null;
-  }
-
   void _apply() {
     List<String> labels = _labelCtrls.map((item) => item.text).toList();
     viewModel.setupGame(_disks, _pegs, _from, _to, labels);
@@ -213,51 +198,3 @@ class _GameConfigViewState extends State<GameConfigView> {
     );
   }
 }
-
-/*
-class GameConfigView extends StatefulWidget {
-  const GameConfigView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Configura las torres de Hanoi',
-          style: TextStyle(fontFamily: "RobotoMono-SemiBold"),
-        ),
-      ),
-      body: ListView.builder(
-        itemCount: viewModel.maxLevel,
-        itemBuilder: (context, index) {
-          final level = index + 1;
-          return ListTile(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'level $level',
-                  style: TextStyle(fontFamily: "RobotoMono-SemiBold"),
-                ),
-                if (viewModel.currentLevel >= level &&
-                    viewModel.moveRecord[level] > 0)
-                  Text(
-                    'least move count ${viewModel.moveRecord[level]}',
-                    style: TextStyle(fontFamily: "RobotoMono-SemiBold"),
-                  ),
-              ],
-            ),
-            enabled: level <= viewModel.unlockedLevels,
-            onTap: () {
-              viewModel.setLevel(level);
-              Navigator.pop(context);
-            },
-          );
-        },
-      ),
-    );
-  }
-}
-*/
