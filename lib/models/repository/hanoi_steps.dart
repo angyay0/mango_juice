@@ -2,25 +2,15 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-Future<dynamic> solveForHanoi(
-  int disks,
-  List<String> pegs,
-  String from,
-  String to,
-) async {
-  final url = Uri.parse('https://jsonplaceholder.typicode.com/posts');
-  final body = jsonEncode({
-    "size": disks,
-    "k": pegs.length,
-    "pegs": pegs,
-    "from": from,
-    "to": to,
-  });
+Future<dynamic> stepsForSolveHanoi(Map<String, dynamic> body) async {
+  final url = Uri.parse(
+    'https://cocoa-truffle-mix-lhptr.ondigitalocean.app/api/hanoi',
+  );
 
   final response = await http.post(
     url,
     headers: {"Content-Type": "application/json"},
-    body: body,
+    body: jsonEncode(body),
   );
 
   if (response.statusCode == 200) {

@@ -3,21 +3,25 @@ import 'peg.dart';
 class Hanoi {
   List<Peg> pegs;
   List<int> moveRecord;
+  List<List<dynamic>> solveMoves;
   int pegsForGame;
   int disksForGame;
   String origin;
   String destination;
   int moveCount;
   bool isShowLevelComplete;
+  bool isAuto;
   Hanoi({
     required this.pegs,
     this.moveRecord = const [],
+    this.solveMoves = const [],
     required this.pegsForGame,
     required this.disksForGame,
     required this.moveCount,
     required this.origin,
     required this.destination,
     required this.isShowLevelComplete,
+    required this.isAuto,
   }) {
     moveRecord = List.filled(0, 0, growable: true);
   }
@@ -70,8 +74,13 @@ class Hanoi {
   ) {
     this.origin = origin;
     this.destination = destination;
+    moveCount = 0;
+    solveMoves = [];
+    moveRecord = [];
     pegsForGame = pegs;
     disksForGame = disks;
+    isAuto = false;
+    isShowLevelComplete = false;
     resetGame(pegList);
   }
 
@@ -88,6 +97,7 @@ class Hanoi {
       destination: 'C',
       origin: 'A',
       isShowLevelComplete: false,
+      isAuto: false,
     );
   }
 }

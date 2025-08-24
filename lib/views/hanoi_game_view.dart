@@ -29,17 +29,27 @@ class _HanoiGameViewState extends State<HanoiGameView> {
                   setState(() {});
                 }),
           ),
+          Consumer<HanoiViewModel>(
+            builder: (_, vm, __) => IconButton(
+              tooltip: 'Resolver (API)',
+              icon: const Icon(Icons.play_arrow),
+              onPressed: vm.isAuto ? null : () => vm.startAutoSolve(),
+            ),
+          ),
         ],
       ),
       body: Consumer<HanoiViewModel>(
         builder: (context, viewModel, child) {
-          if (viewModel.isShowLevelComplete) {
+          if (viewModel.isShowLevelComplete && !viewModel.dialogShown) {
+            viewModel.dialogShown = true;
             WidgetsBinding.instance.addPostFrameCallback((_) {
               showDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => AlertDialogWidget(viewModel: viewModel),
-              );
+              ).then((_) {
+                viewModel.dialogShown = false;
+              });
             });
           }
 

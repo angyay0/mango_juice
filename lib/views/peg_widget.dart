@@ -18,6 +18,8 @@ class PegWidget extends StatefulWidget {
     Colors.pink,
     Colors.teal,
     Colors.amber,
+    Colors.black,
+    Colors.brown,
   ];
 
   const PegWidget({super.key, required this.tower});
@@ -96,7 +98,7 @@ class _PegWidgetState extends State<PegWidget>
           },
           child: Container(
             width: 100,
-            height: 300,
+            height: 400,
             decoration: BoxDecoration(
               color: _isDragging
                   ? Colors.grey.withAlpha((0.3 * 255).toInt())
